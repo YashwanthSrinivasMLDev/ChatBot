@@ -1,0 +1,25 @@
+# .gitignore
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.env # For .env files if you use python-dotenv for local secrets
+.pytest_cache/
+.mypy_cache/
+
+# Streamlit
+.streamlit/secrets.toml # VERY IMPORTANT: Keep your secrets out of Git!
+
+# Machine Learning Models and Data
+models/                # Ignore the cached models and embeddings
+chroma_data_*/         # If you had a persistent ChromaDB in a local folder
+*.joblib
+*.pkl
+*.h5
+*.pt
+*.bin
+*.safetensors
