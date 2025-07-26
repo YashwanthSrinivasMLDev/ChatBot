@@ -251,6 +251,7 @@ st.markdown("""
     border-radius: 10px;
     margin-bottom: 10px;
     font-size: 1.05em;
+    color: #000000; /* Explicitly set text color to black */
 }
 .user-message {
     background-color: #e0f7fa; /* Light blue */
