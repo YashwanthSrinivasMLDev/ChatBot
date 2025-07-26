@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 import os
 import joblib # For saving/loading the model and encoder
-
+from custom_dataset import custom_training_data
 # --- Configuration ---
 MODEL_NAME = 'all-MiniLM-L6-v2' # A good, small, fast sentence embedding model
 MODEL_PATH = './models'
@@ -21,39 +21,10 @@ os.makedirs(MODEL_PATH, exist_ok=True)
 # --- 1. Data Preparation ---
 # This is our small, in-memory dataset of intents and example phrases.
 # In a real-world scenario, this would come from a CSV, database, or a more complex annotation process.
-data = {
-    'phrase': [
-        "Hi there", "Hello", "Hey", "Good morning", "Good evening",
-        "What's your name?", "Who are you?", "Tell me about yourself", "Your identity?",
-        "How can I help you?", "What do you do?", "What services do you offer?", "Help me",
-        "Bye", "Goodbye", "See you later", "Farewell",
-        "Thank you", "Thanks a lot", "Appreciate it", "Many thanks",
-        "What is the weather like today?", "Is it sunny outside?", "Will it rain tomorrow?",
-        "Tell me a joke", "Make me laugh", "Do you know any jokes?",
-        "Set an alarm for 7 AM", "Remind me to call mom at 3 PM", "Create a reminder",
-        "Play some music", "Start a song", "Put on a playlist",
-        "What is your purpose?", "Why were you created?", "What's your function?",
-        "I need assistance with my account", "Help with my order", "I have a billing question",
-        "How do I reset my password?", "Forgot my login details", "Password recovery",
-        "What is the capital of France?", "Who invented the light bulb?", "Tell me a fact"
-    ],
-    'intent': [
-        "greet", "greet", "greet", "greet", "greet",
-        "identify", "identify", "identify", "identify",
-        "offer_help", "offer_help", "offer_help", "offer_help",
-        "farewell", "farewell", "farewell", "farewell",
-        "thank_you", "thank_you", "thank_you", "thank_you",
-        "weather_query", "weather_query", "weather_query",
-        "tell_joke", "tell_joke", "tell_joke",
-        "set_reminder", "set_reminder", "set_reminder",
-        "play_music", "play_music", "play_music",
-        "purpose_query", "purpose_query", "purpose_query",
-        "customer_support", "customer_support", "customer_support",
-        "password_reset", "password_reset", "password_reset",
-        "general_knowledge", "general_knowledge", "general_knowledge"
-    ]
-}
-df = pd.DataFrame(data)
+
+
+
+df = pd.DataFrame(custom_training_data)
 
 # --- 2. Load Sentence Transformer Model ---
 @st.cache_resource # Cache the model loading for efficiency in Streamlit
