@@ -28,7 +28,7 @@ os.makedirs(MODEL_PATH, exist_ok=True)
 
 # Determine device for PyTorch
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-st.info(f"Using device: {device}")
+# st.info(f"Using device: {device}")
 
 # --- 1. Data Preparation (Now using imported df_data) ---
 df = pd.DataFrame(custom_training_data)
@@ -39,13 +39,13 @@ def load_embedding_model():
     try:
         # Try loading from local path first
         model = SentenceTransformer(EMBEDDING_MODEL_DIR)
-        st.success(f"Loaded embedding model from local cache: {MODEL_NAME}")
+        # st.success(f"Loaded embedding model from local cache: {MODEL_NAME}")
     except Exception:
         # If not found locally, download and save
         st.warning(f"Embedding model not found locally. Downloading {MODEL_NAME}...")
         model = SentenceTransformer(MODEL_NAME)
         model.save(EMBEDDING_MODEL_DIR)
-        st.success(f"Downloaded and cached embedding model: {MODEL_NAME}")
+        # st.success(f"Downloaded and cached embedding model: {MODEL_NAME}")
     return model
 
 embedding_model = load_embedding_model()
@@ -76,7 +76,7 @@ def train_intent_classifier(dataframe, _embedding_model, _device):
     Trains a Neural Network classifier for intent recognition using PyTorch.
     Caches the trained model and label encoder.
     """
-    st.info("Training intent classifier (Neural Network with PyTorch)...")
+    # st.info("Training intent classifier (Neural Network with PyTorch)...")
 
     # Encode labels (convert string intents to numerical IDs)
     label_encoder = LabelEncoder()
@@ -144,7 +144,7 @@ def train_intent_classifier(dataframe, _embedding_model, _device):
 
 # Check if models are already trained and saved, otherwise train
 if os.path.exists(CLASSIFIER_MODEL_FILE) and os.path.exists(LABEL_ENCODER_FILE):
-    st.info("Loading pre-trained intent classifier (Neural Network with PyTorch) and label encoder...")
+    # st.info("Loading pre-trained intent classifier (Neural Network with PyTorch) and label encoder...")
     # Load LabelEncoder first to get num_classes and embedding_dim for model initialization
     label_encoder = joblib.load(LABEL_ENCODER_FILE)
     num_classes = len(label_encoder.classes_)
@@ -157,7 +157,7 @@ if os.path.exists(CLASSIFIER_MODEL_FILE) and os.path.exists(LABEL_ENCODER_FILE):
     classifier = IntentClassifierNN(embedding_dim, num_classes).to(device)
     classifier.load_state_dict(torch.load(CLASSIFIER_MODEL_FILE, map_location=device))
     classifier.eval() # Set to evaluation mode after loading
-    st.success("Pre-trained models loaded.")
+    # st.success("Pre-trained models loaded.")
 else:
     classifier, label_encoder = train_intent_classifier(df, embedding_model, device)
 
