@@ -41,7 +41,7 @@ def load_embedding_model():
         # st.success(f"Loaded embedding model from local cache: {MODEL_NAME}")
     except Exception:
         # If not found locally, download and save
-        st.warning(f"Embedding model not found locally. Downloading {MODEL_NAME}...")
+        # st.warning(f"Embedding model not found locally. Downloading {MODEL_NAME}...")
         model = SentenceTransformer(MODEL_NAME)
         model.save(EMBEDDING_MODEL_DIR)
         # st.success(f"Downloaded and cached embedding model: {MODEL_NAME}")
