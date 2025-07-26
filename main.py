@@ -76,7 +76,7 @@ embedding_model = load_embedding_model()
 # --- 3. Train Intent Classifier (Logistic Regression) ---
 # This function will be run only once, then cached by Streamlit
 @st.cache_resource
-def train_intent_classifier(dataframe, embedding_model):
+def train_intent_classifier(dataframe, _embedding_model):
     """
     Trains a Logistic Regression classifier for intent recognition.
     Caches the trained model and label encoder.
