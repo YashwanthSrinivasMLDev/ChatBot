@@ -1,3 +1,43 @@
+import pandas as pd
+from datasets import load_dataset
+import os
+
+# Define a path to cache the dataset locally
+DATASET_CACHE_DIR = "./data_cache"
+os.makedirs(DATASET_CACHE_DIR, exist_ok=True)
+
+
+def get_training_dataframe():
+    """
+    Loads the CLINC150 dataset from Hugging Face and returns it as a Pandas DataFrame.
+    Caches the dataset locally after the first download.
+    """
+    try:
+        # Load the 'full' split of the CLINC150 dataset
+        # This will download it to DATASET_CACHE_DIR if not already present
+        dataset = load_dataset("clinc_oos", "plus", split="train", cache_dir=DATASET_CACHE_DIR)
+
+        # Convert to Pandas DataFrame
+        # The dataset has 'text' (user utterance) and 'intent' columns
+        df_data = pd.DataFrame(dataset)
+
+        print(f"Successfully loaded CLINC150 dataset. Total phrases: {len(df_data)}")
+        print(f"Unique intents: {df_data['intent'].nunique()}")
+        print("\nPhrases per intent (top 5):\n", df_data['intent'].value_counts().head())
+
+        return df_data
+
+    except Exception as e:
+        print(f"Error loading CLINC150 dataset: {e}")
+        print("Please ensure you have an internet connection for the first download.")
+        return pd.DataFrame({'phrase': [], 'intent': []})
+
+
+# The df_data variable is no longer directly defined here,
+# instead, it's returned by the function.
+# You will call get_training_dataframe() in your main app.
+
+
 custom_training_data =   {
     'phrase': [
         # Greet (Now with ~50 examples)

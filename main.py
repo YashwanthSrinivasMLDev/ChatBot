@@ -4,16 +4,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from sentence_transformers import SentenceTransformer
-import numpy as np
 import os
 import joblib # For saving/loading the label encoder
 import torch # Import PyTorch
 import torch.nn as nn # Neural network modules
 import torch.optim as optim # Optimizers
 from datetime import datetime # For dynamic date/time responses
-
 # --- Import your data from data_loader.py ---
 from custom_dataset import custom_training_data
+from custom_dataset import get_training_dataframe
 # -------------------------------------------
 
 # --- Configuration ---
@@ -32,6 +31,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # --- 1. Data Preparation (Now using imported df_data) ---
 df = pd.DataFrame(custom_training_data)
+df = get_training_dataframe()
 # --- 2. Load Sentence Transformer Model ---
 @st.cache_resource # Cache the model loading for efficiency in Streamlit
 def load_embedding_model():
