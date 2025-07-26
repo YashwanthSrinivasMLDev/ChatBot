@@ -4,7 +4,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from sentence_transformers import SentenceTransformer
-import numpy as np
 import os
 import joblib # For saving/loading the label encoder
 import torch # Import PyTorch
