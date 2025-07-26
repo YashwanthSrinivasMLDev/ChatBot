@@ -12,7 +12,8 @@ venv/
 .mypy_cache/
 
 # Streamlit
-.streamlit/secrets.toml # VERY IMPORTANT: Keep your secrets out of Git!
+.streamlit/secrets.toml
+# VERY IMPORTANT: Keep your secrets out of Git!
 
 # Machine Learning Models and Data
 models/                # Ignore the cached models and embeddings
