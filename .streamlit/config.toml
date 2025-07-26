@@ -1,0 +1,2 @@
+[tool.streamlit.pyenv]
+version = "3.11"
